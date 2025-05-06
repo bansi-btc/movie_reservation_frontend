@@ -11,6 +11,7 @@ import { LoginURL } from "@/constants/apiConstants";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 type FormValues = {
   email: string;
@@ -23,7 +24,7 @@ export default function Login() {
 
   const handleLogin = async (data: FormValues) => {
     const resp = await POSTRequest(LoginURL, data);
-    return resp as { success?: boolean; message?: string };
+    return resp as { success?: boolean; message?: string; token?: string };
   };
 
   const loginMutation = useMutation({
@@ -31,7 +32,9 @@ export default function Login() {
     mutationKey: ["login"],
     onSuccess: (data) => {
       if (data?.success) {
+        console.log(data, "data");
         toast.success(data.message ?? "Logged In successfully");
+        Cookies.set("token", data.token ?? "", { expires: 1 });
         router.push("/dashboard");
         return;
       }

@@ -1,8 +1,9 @@
+import MoviesPage from "@components/ui/Movies/Movies";
+
 export default function Page() {
   return (
-    <div>
-      <h1>Movies</h1>
-      <p>List of movies will be displayed here.</p>
+    <div className="max-w-[1280px] mx-auto mt-10">
+      <MoviesPage />
     </div>
   );
 }

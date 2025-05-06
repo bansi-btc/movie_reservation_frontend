@@ -13,7 +13,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const token = cookieStore.get("token");
+  const token = cookieStore.get("token")?.value;
 
   if (!token) {
     redirect("/login");
